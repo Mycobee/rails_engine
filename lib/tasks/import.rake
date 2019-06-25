@@ -13,7 +13,14 @@ namespace :import do
 			invoice_id = row[2]
 			quantity = row[3]
 			unit_price = row[4]
-			Customer.create(first_name: first_name, last_name: last_name)
+			InvoiceItem.create(item_id: item_id, invoice_id: invoice_id, quantity: quantity, unit_price:  unit_price)
+		end
+
+		CSV.foreach(/path/to/invoices.csv) do |row|
+			customer_id = row[1]
+			merchant_id = row[2]
+			status = row[3]
+			Invoice.create(customer_id: customer_id, merchant_id: merchant_id, status: status)
 		end
 	end
 end
