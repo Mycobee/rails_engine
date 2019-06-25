@@ -38,10 +38,10 @@ namespace :import do
 
 		CSV.foreach('data/transactions.csv') do |row|
 			invoice_id = row[1].to_i
-			credit_card_number = row[2].to_i
+			credit_card_number = row[2]
 			credit_card_expiration_date = row[3]
 			result = row[4]
-			Merchant.create(name: name)
+			Transaction.create(invoice_id: invoice_id, credit_card_number: credit_card_number, credit_card_expiration_date: credit_card_expiration_date)
 		end
 	end
 end
