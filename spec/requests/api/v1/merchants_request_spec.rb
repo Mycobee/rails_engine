@@ -21,6 +21,6 @@ RSpec.describe 'Merchants API ' do
 		merchant = JSON.parse(response.body)
 
 		expect(response).to be_successful
-		expect(merchant["id"]).to eq(id)
+		expect(merchant["data"]["attributes"]["id"]).to eq(id)
 	end
 end
