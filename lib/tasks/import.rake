@@ -41,7 +41,7 @@ namespace :import do
 			credit_card_number = row[2]
 			credit_card_expiration_date = row[3]
 			result = row[4]
-			Transaction.create(invoice_id: invoice_id, credit_card_number: credit_card_number, credit_card_expiration_date: credit_card_expiration_date)
+			Transaction.create(invoice_id: invoice_id, credit_card_number: credit_card_number, credit_card_expiration_date: credit_card_expiration_date, result: result)
 		end
 	end
 end
