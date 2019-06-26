@@ -13,7 +13,7 @@ RSpec.describe 'Invoices API ' do
 		expect(Invoice.count).to eq(3)
 	end
 
-	xit 'can get a invoice by id' do 
+	it 'can get a invoice by id' do 
 		id = create(:invoice).id
 
 		get "/api/v1/invoices/#{id}"
