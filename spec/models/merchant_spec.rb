@@ -86,6 +86,10 @@ RSpec.describe Merchant, type: :model do
 		it '.most_revenue' do
 			expect(Merchant.most_revenue(3)).to eq([@merchant_4, @merchant_3, @merchant_2])	
 		end
+
+		it '.most_items' do
+			expect(Merchant.most_items(3)).to eq([@merchant_4, @merchant_3, @merchant_2])	
+		end
 	end
 end
 
