@@ -17,7 +17,13 @@ class Merchant < ApplicationRecord
 						 joins('INNER JOIN items ON items.merchant_id = merchants.id INNER JOIN invoice_items ON invoice_items.item_id = items.id INNER JOIN invoices ON invoices.id = invoice_items.invoice_id INNER JOIN transactions ON transactions.invoice_id = invoices.id')
 						.select('SUM(invoice_items.quantity) AS total_sold, merchants.*')
 						.group(:id)
+						.where('transactions.result = ?', 'success')
 						.order('total_sold DESC')
 						.limit(limit)
+		end
+
+		def self.revenue_date(date)
+						 date = date.slice(0..9)
+						 joins('INNER JOIN items ON items.merchant_id = merchants.id INNER JOIN invoice_items ON invoice_items.item_id = items.id INNER JOIN invoices ON invoices.id = invoice_items.invoice_id INNER JOIN transactions ON transactions.invoice_id = invoices.id').select('SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue').where('transactions.result = ?', 'success').where('transactions.created_at::date = date ?', date)[0].revenue
 		end
 end
