@@ -7,7 +7,11 @@ class Merchant < ApplicationRecord
 			rev = items.joins(invoices: :transactions)
 					.where('transactions.result = ?', 'success')
 					.select('SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
-			rev[0].total_revenue
+					rev[0].total_revenue
+		end
+
+		def daily_revenue
+binding.pry
 		end
 
 		def self.most_revenue(limit)

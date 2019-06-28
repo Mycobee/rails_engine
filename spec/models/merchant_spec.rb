@@ -89,9 +89,14 @@ RSpec.describe Merchant, type: :model do
 	end
 
 	describe 'instance methods' do	
-		it '#revenue' do
+		it '#merchant_revenue' do
 			expected = ((@invoice_item_4a.unit_price * 2) + (@invoice_item_4b.unit_price * 2) + (@invoice_item_4c.unit_price * 2) + (@invoice_item_4d.unit_price * 2))
 			expect(@merchant_4.merchant_revenue).to eq(expected)
+		end				
+
+		it '#daily_revenue' do
+			expected = ((@invoice_item_4a.unit_price * 2) + (@invoice_item_4b.unit_price * 2) + (@invoice_item_4c.unit_price * 2) + (@invoice_item_4d.unit_price * 2))
+			expect(@merchant_4.daily_revenue(@transaction_4a.created_at.to_s(:db))).to eq(expected)
 		end				
 	end
 end
