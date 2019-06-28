@@ -4,14 +4,17 @@ class Merchant < ApplicationRecord
 		has_many :customers, through: :invoices
 
 		def merchant_revenue
-			rev = items.joins(invoices: :transactions)
+		 items.joins(invoices: :transactions)
 					.where('transactions.result = ?', 'success')
-					.select('SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
-					rev[0].total_revenue
+					.select('SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')[0].total_revenue
 		end
 
-		def daily_revenue
-binding.pry
+		def daily_revenue(date)
+			date = date.slice(0..9)
+					  items.joins(invoices: :transactions)
+								 .where('transactions.result = ?', 'success')
+								 .select('SUM(invoice_items.unit_price * invoice_items.quantity) AS daily_revenue')
+							   .where('transactions.created_at::date = date ?', date)[0].daily_revenue
 		end
 
 		def self.most_revenue(limit)
