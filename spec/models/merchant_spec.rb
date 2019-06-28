@@ -91,7 +91,7 @@ RSpec.describe Merchant, type: :model do
 	describe 'instance methods' do	
 		it '#revenue' do
 			expected = ((@invoice_item_4a.unit_price * 2) + (@invoice_item_4b.unit_price * 2) + (@invoice_item_4c.unit_price * 2) + (@invoice_item_4d.unit_price * 2))
-			expect(@merchant_4.revenue).to eq(expected)
+			expect(@merchant_4.merchant_revenue).to eq(expected)
 		end				
 	end
 end
