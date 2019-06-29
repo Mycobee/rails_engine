@@ -23,4 +23,11 @@ RSpec.describe Customer, type: :model do
 			expect(customer.favorite_merchant).to eq(merchant_1)
 		end
 	end
+	
+	describe 'class methods' do
+		it '.random' do
+			create_list(:customer, 3)
+			expect(Customer.random.class).to eq(Customer)
+		end
+	end
 end

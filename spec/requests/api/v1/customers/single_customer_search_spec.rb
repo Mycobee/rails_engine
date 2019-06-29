@@ -62,4 +62,3 @@ describe 'Search Controller' do
 		expect(customer["data"]["attributes"]).to have_key("last_name")
 	end
 end
-
