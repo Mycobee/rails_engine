@@ -36,7 +36,7 @@ describe 'Search Controller' do
 
 		invoice = JSON.parse(response.body)
 	  	
-		expect(invoice["data"].count).to eq(1)
+		expect(invoice["data"].count).to eq(2)
 		expect(invoice["data"].class).to eq(Array)
 	end
 
