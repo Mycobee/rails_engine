@@ -2,66 +2,50 @@ require 'rails_helper'
 
 describe 'Search Controller' do
 	before :each do
-		@merchant_1 = create(:merchant, created_at: '2019-06-23 14:53:59 UTC', updated_at: '2019-06-23 14:53:59 UTC')
-		@merchant_2 = create(:merchant, created_at: 1.days.ago, updated_at: 1.days.ago)
+		@transaction_1 = create(:transaction, created_at: '2019-06-23 14:53:59 UTC', updated_at: '2019-06-23 14:53:59 UTC')
+		@transaction_2 = create(:transaction, created_at: 1.days.ago, updated_at: 1.days.ago)
   end	
 
-	it 'finds a merchant by created_at' do
-		get "/api/v1/merchants/find?created_at=2019-06-23-14:53:59-UTC"
+	it 'finds a transaction by created_at' do
+		get "/api/v1/transactions/find?created_at=2019-06-23-14:53:59-UTC"
 
 		expect(response).to be_successful
 
-		merchant = JSON.parse(response.body)
+		transaction = JSON.parse(response.body)
 
-		expect(merchant["data"]["attributes"]["id"]).to eq(@merchant_1.id)
-		expect(merchant["data"]["attributes"]["name"]).to eq(@merchant_1.name)
+		expect(transaction["data"]["attributes"]["id"]).to eq(@transaction_1.id)
 	end
 
-	it 'finds a merchant by updated_at' do
-		get "/api/v1/merchants/find?updated_at=2019-06-23-14:53:59-UTC"
+	it 'finds a transaction by updated_at' do
+		get "/api/v1/transactions/find?updated_at=2019-06-23-14:53:59-UTC"
 
 		expect(response).to be_successful
 
-		merchant = JSON.parse(response.body)
+		transaction = JSON.parse(response.body)
 
-		expect(merchant["data"]["attributes"]["id"]).to eq(@merchant_1.id)
-		expect(merchant["data"]["attributes"]["name"]).to eq(@merchant_1.name)
+		expect(transaction["data"]["attributes"]["id"]).to eq(@transaction_1.id)
 	end
 
-	it 'finds a merchant by name' do
-		get "/api/v1/merchants/find?name=#{@merchant_1.name}"
+
+	it 'finds a transaction by id' do
+		get "/api/v1/transactions/find?id=#{@transaction_1.id}"
 
 		expect(response).to be_successful
 
-		merchant = JSON.parse(response.body)
+		transaction = JSON.parse(response.body)
 
-		expect(merchant["data"]["attributes"]["id"]).to eq(@merchant_1.id)
-		expect(merchant["data"]["attributes"]["name"]).to eq(@merchant_1.name)
-		#do a test here
+		expect(transaction["data"]["attributes"]["id"]).to eq(@transaction_1.id)
 	end
 
-	it 'finds a merchant by id' do
-		get "/api/v1/merchants/find?id=#{@merchant_1.id}"
+	it 'finds a random transaction' do
+		create_list(:transaction, 3)
+
+		get '/api/v1/transactions/random'
 
 		expect(response).to be_successful
 
-		merchant = JSON.parse(response.body)
-
-		expect(merchant["data"]["attributes"]["id"]).to eq(@merchant_1.id)
-		expect(merchant["data"]["attributes"]["name"]).to eq(@merchant_1.name)
-		#do a test here
-	end
-
-	it 'finds a random merchant' do
-		create_list(:merchant, 3)
-
-		get '/api/v1/merchants/random'
-
-		expect(response).to be_successful
-
-		merchant = JSON.parse(response.body)
-		expect(merchant["data"]["attributes"]).to have_key("id")
-		expect(merchant["data"]["attributes"]).to have_key("name")
+		transaction = JSON.parse(response.body)
+		expect(transaction["data"]["attributes"]).to have_key("id")
 	end
 end
 
