@@ -8,7 +8,7 @@ describe 'Search Controller' do
 	it 'finds a random merchant' do
 		create_list(:merchant, 3)
 
-		get 'api/v1/merchants/random'
+		get '/api/v1/merchants/random'
 
 		expect(response).to be_successful
 

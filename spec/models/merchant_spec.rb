@@ -86,6 +86,11 @@ RSpec.describe Merchant, type: :model do
 			expected = ((@invoice_item_4a.unit_price * 2) + (@invoice_item_4b.unit_price * 2) + (@invoice_item_4c.unit_price * 2) + (@invoice_item_4d.unit_price * 2))
 			expect(actual).to eq(expected)
 		end
+
+		it '.random' do
+			expect(Merchant.random.count).to eq(1)
+			expect(Merchant.random.class).to eq(Merchant)
+		end
 	end
 
 	describe 'instance methods' do	
