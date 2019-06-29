@@ -19,6 +19,11 @@ class Item < ApplicationRecord
 					.order('item_count DESC')
 					.limit(quantity)
 	end
+	
+	def self.random
+					rand_id = Item.all.pluck(:id).sample
+					Item.find(rand_id)
+	end
 
 	def best_day
 		invoice_items.joins(invoice: :transactions)
