@@ -2,66 +2,64 @@ require 'rails_helper'
 
 describe 'Search Controller' do
 	before :each do
-		@merchant_1 = create(:merchant, created_at: '2019-06-23 14:53:59 UTC', updated_at: '2019-06-23 14:53:59 UTC')
-		@merchant_2 = create(:merchant, created_at: 1.days.ago, updated_at: 1.days.ago)
+		@customer_1 = create(:customer, created_at: '2019-06-23 14:53:59 UTC', updated_at: '2019-06-23 14:53:59 UTC')
+		@customer_2 = create(:customer, created_at: 1.days.ago, updated_at: 1.days.ago)
   end	
 
-	it 'finds a merchant by created_at' do
-		get "/api/v1/merchants/find?created_at=2019-06-23-14:53:59-UTC"
+	it 'finds a customer by created_at' do
+		get "/api/v1/customers/find?created_at=2019-06-23-14:53:59-UTC"
 
 		expect(response).to be_successful
 
-		merchant = JSON.parse(response.body)
+		customer = JSON.parse(response.body)
 
-		expect(merchant["data"]["attributes"]["id"]).to eq(@merchant_1.id)
-		expect(merchant["data"]["attributes"]["name"]).to eq(@merchant_1.name)
+		expect(customer["data"]["attributes"]["id"]).to eq(@customer_1.id)
+		expect(customer["data"]["attributes"]["name"]).to eq(@customer_1.name)
 	end
 
-	it 'finds a merchant by updated_at' do
-		get "/api/v1/merchants/find?updated_at=2019-06-23-14:53:59-UTC"
+	it 'finds a customer by updated_at' do
+		get "/api/v1/customers/find?updated_at=2019-06-23-14:53:59-UTC"
 
 		expect(response).to be_successful
 
-		merchant = JSON.parse(response.body)
+		customer = JSON.parse(response.body)
 
-		expect(merchant["data"]["attributes"]["id"]).to eq(@merchant_1.id)
-		expect(merchant["data"]["attributes"]["name"]).to eq(@merchant_1.name)
+		expect(customer["data"]["attributes"]["id"]).to eq(@customer_1.id)
+		expect(customer["data"]["attributes"]["name"]).to eq(@customer_1.name)
 	end
 
-	it 'finds a merchant by name' do
-		get "/api/v1/merchants/find?name=#{@merchant_1.name}"
+	it 'finds a customer by name' do
+		get "/api/v1/customers/find?name=#{@customer_1.name}"
 
 		expect(response).to be_successful
 
-		merchant = JSON.parse(response.body)
+		customer = JSON.parse(response.body)
 
-		expect(merchant["data"]["attributes"]["id"]).to eq(@merchant_1.id)
-		expect(merchant["data"]["attributes"]["name"]).to eq(@merchant_1.name)
-		#do a test here
+		expect(customer["data"]["attributes"]["id"]).to eq(@customer_1.id)
+		expect(customer["data"]["attributes"]["name"]).to eq(@customer_1.name)
 	end
 
-	it 'finds a merchant by id' do
-		get "/api/v1/merchants/find?id=#{@merchant_1.id}"
+	it 'finds a customer by id' do
+		get "/api/v1/customers/find?id=#{@customer_1.id}"
 
 		expect(response).to be_successful
 
-		merchant = JSON.parse(response.body)
+		customer = JSON.parse(response.body)
 
-		expect(merchant["data"]["attributes"]["id"]).to eq(@merchant_1.id)
-		expect(merchant["data"]["attributes"]["name"]).to eq(@merchant_1.name)
-		#do a test here
+		expect(customer["data"]["attributes"]["id"]).to eq(@customer_1.id)
+		expect(customer["data"]["attributes"]["name"]).to eq(@customer_1.name)
 	end
 
-	it 'finds a random merchant' do
-		create_list(:merchant, 3)
+	it 'finds a random customer' do
+		create_list(:customer, 3)
 
-		get '/api/v1/merchants/random'
+		get '/api/v1/customers/random'
 
 		expect(response).to be_successful
 
-		merchant = JSON.parse(response.body)
-		expect(merchant["data"]["attributes"]).to have_key("id")
-		expect(merchant["data"]["attributes"]).to have_key("name")
+		customer = JSON.parse(response.body)
+		expect(customer["data"]["attributes"]).to have_key("id")
+		expect(customer["data"]["attributes"]).to have_key("name")
 	end
 end
 
