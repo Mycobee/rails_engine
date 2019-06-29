@@ -99,8 +99,8 @@ RSpec.describe Merchant, type: :model do
 			expect(@merchant_4.daily_revenue(@transaction_4a.created_at.to_s(:db))).to eq(expected)
 		end				
 
-		it '#favorite_customer' do
-			expect(@merchant_4.favorite_customer).to eq(@customer_4)
+		it '#favorite_custy' do
+			expect(@merchant_4.favorite_custy).to eq(@customer_4)
 		end
 	end
 end
