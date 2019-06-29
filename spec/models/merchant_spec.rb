@@ -88,7 +88,6 @@ RSpec.describe Merchant, type: :model do
 		end
 
 		it '.random' do
-			expect(Merchant.random.count).to eq(1)
 			expect(Merchant.random.class).to eq(Merchant)
 		end
 	end
