@@ -65,18 +65,27 @@ RSpec.describe Item, type: :model do
 
 			@invoice_4c	= create(:invoice, merchant: @merchant_4, customer: @customer_4, created_at: 4.days.ago)
 			@item_4c = create(:item, merchant: @merchant_4, created_at: 4.days.ago)
-			@invoice_item_4c = create(:invoice_item, item: @item_4c, invoice: @invoice_4c, created_at: 4.days.ago)
+			@invoice_item_4c = create(:invoice_item, item: @item_4c, invoice: @invoice_4c, quantity: 100, unit_price: 100, created_at: 4.days.ago)
+			@invoice_item_4c_2 = create(:invoice_item, item: @item_4c, quantity: 100, unit_price: 100, invoice: @invoice_4c, created_at: 4.days.ago)
 			@transaction_4c = create(:transaction, invoice: @invoice_4c, created_at: 4.days.ago)
 
 			@invoice_4d	= create(:invoice, merchant: @merchant_4, customer: @customer_4, created_at: 4.days.ago)
 			@item_4d = create(:item, merchant: @merchant_4, created_at: 4.days.ago)
-			@invoice_item_4d = create(:invoice_item, item: @item_4d, invoice: @invoice_4d, created_at: 4.days.ago)
-			@invoice_item_4d_2 = create(:invoice_item, item: @item_4d, invoice: @invoice_4d, created_at: 4.days.ago)
+			@invoice_item_4d = create(:invoice_item, item: @item_4d, quantity: 200, unit_price: 100, invoice: @invoice_4d, created_at: 4.days.ago)
+			@invoice_item_4d_2 = create(:invoice_item, item: @item_4d, quantity: 200, unit_price: 200, invoice: @invoice_4d, created_at: 4.days.ago)
 			@transaction_4d = create(:transaction, invoice: @invoice_4d, created_at: 4.days.ago)
 		end
 			
 		it '.most_revenue' do
-				expect(Item.most_revenue(1)).to eq([@item_4d])	
+				expect(Item.most_revenue(2)).to eq([@item_4d, @item_4c])	
+		end
+
+		it '.most_items' do
+			expect(Item.most_items(2)).to eq([@item_4d, @item_4c])
+		end
+
+		it '.best_day' do
+			expect(@item_4d.best_day).to eq(4.days.ago)
 		end
 	end
 end
