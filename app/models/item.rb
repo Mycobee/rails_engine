@@ -19,4 +19,13 @@ class Item < ApplicationRecord
 					.order('item_count DESC')
 					.limit(quantity)
 	end
+
+	def best_day
+		invoice_items.joins(invoice: :transactions)
+					.where('invoice_items.item_id = ?', id)					
+					.where('transactions.result = ?', 'success')
+					.group('invoices.created_at::date')
+					.select('SUM(invoice_items.unit_price * invoice_items.quantity) AS daily_rev, invoices.created_at::date')
+					.order('daily_rev DESC')[0].created_at.to_date
+	end
 end
