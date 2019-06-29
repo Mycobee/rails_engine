@@ -1,6 +1,6 @@
-class Api::V1::Merchants::RandomController < ApplicationController
+class Api::V1::InvoiceItems::RandomController < ApplicationController
 		def show
-			render json: MerchantSerializer.new(Merchant.random)	
+			render json: InvoiceItemSerializer.new(InvoiceItem.random)	
 		end
 end
 
