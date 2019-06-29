@@ -14,7 +14,7 @@ describe 'Search Controller' do
 		customer = JSON.parse(response.body)
 
 		expect(customer["data"]["attributes"]["id"]).to eq(@customer_1.id)
-		expect(customer["data"]["attributes"]["name"]).to eq(@customer_1.name)
+		expect(customer["data"]["attributes"]["last_name"]).to eq(@customer_1.last_name)
 	end
 
 	it 'finds a customer by updated_at' do
@@ -25,18 +25,18 @@ describe 'Search Controller' do
 		customer = JSON.parse(response.body)
 
 		expect(customer["data"]["attributes"]["id"]).to eq(@customer_1.id)
-		expect(customer["data"]["attributes"]["name"]).to eq(@customer_1.name)
+		expect(customer["data"]["attributes"]["last_name"]).to eq(@customer_1.last_name)
 	end
 
 	it 'finds a customer by name' do
-		get "/api/v1/customers/find?name=#{@customer_1.name}"
+		get "/api/v1/customers/find?last_name=#{@customer_1.last_name}"
 
 		expect(response).to be_successful
 
 		customer = JSON.parse(response.body)
 
 		expect(customer["data"]["attributes"]["id"]).to eq(@customer_1.id)
-		expect(customer["data"]["attributes"]["name"]).to eq(@customer_1.name)
+		expect(customer["data"]["attributes"]["last_name"]).to eq(@customer_1.last_name)
 	end
 
 	it 'finds a customer by id' do
@@ -47,7 +47,7 @@ describe 'Search Controller' do
 		customer = JSON.parse(response.body)
 
 		expect(customer["data"]["attributes"]["id"]).to eq(@customer_1.id)
-		expect(customer["data"]["attributes"]["name"]).to eq(@customer_1.name)
+		expect(customer["data"]["attributes"]["last_name"]).to eq(@customer_1.last_name)
 	end
 
 	it 'finds a random customer' do
@@ -59,7 +59,7 @@ describe 'Search Controller' do
 
 		customer = JSON.parse(response.body)
 		expect(customer["data"]["attributes"]).to have_key("id")
-		expect(customer["data"]["attributes"]).to have_key("name")
+		expect(customer["data"]["attributes"]).to have_key("last_name")
 	end
 end
 
