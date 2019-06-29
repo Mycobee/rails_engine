@@ -13,6 +13,7 @@ describe 'Search Controller' do
 
 		customer = JSON.parse(response.body)
 		expect(customer["data"].count).to eq(2)
+		expect(customer["data"].class).to eq(Array)
 	end
 
 	it 'finds all customer by updated_at' do
@@ -23,6 +24,7 @@ describe 'Search Controller' do
 		customer = JSON.parse(response.body)
 
 		expect(customer["data"].count).to eq(2)
+		expect(customer["data"].class).to eq(Array)
 	end
 
 	it 'finds all customer by last name' do
@@ -33,6 +35,7 @@ describe 'Search Controller' do
 		customer = JSON.parse(response.body)
 	  	
 		expect(customer["data"].count).to eq(1)
+		expect(customer["data"].class).to eq(Array)
 	end
 
 	it 'finds all customer by first name' do
@@ -42,7 +45,8 @@ describe 'Search Controller' do
 
 		customer = JSON.parse(response.body)
 	  	
-		expect(customer["data"].count).to eq(1)
+		expect(customer["data"].count).to eq(2)
+		expect(customer["data"].class).to eq(Array)
 	end
 
 	it 'finds all customer by id' do
@@ -52,6 +56,7 @@ describe 'Search Controller' do
 
 		customer = JSON.parse(response.body)
 
+		expect(customer["data"].class).to eq(Array)
 		expect(customer["data"].count).to eq(1)
 	end
 end
