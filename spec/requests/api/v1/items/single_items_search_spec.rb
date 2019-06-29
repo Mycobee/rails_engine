@@ -37,7 +37,6 @@ describe 'Search Controller' do
 
 		expect(item["data"]["attributes"]["id"]).to eq(@item_1.id)
 		expect(item["data"]["attributes"]["name"]).to eq(@item_1.name)
-		#do a test here
 	end
 
 	it 'finds a item by id' do
@@ -49,7 +48,6 @@ describe 'Search Controller' do
 
 		expect(item["data"]["attributes"]["id"]).to eq(@item_1.id)
 		expect(item["data"]["attributes"]["name"]).to eq(@item_1.name)
-		#do a test here
 	end
 
 	it 'finds a random item' do
