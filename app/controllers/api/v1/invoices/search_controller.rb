@@ -1,12 +1,12 @@
-class Api::V1::Merchants::SearchController < ApplicationController
+class Api::V1::Invoices::SearchController < ApplicationController
 	def show
-		render json: MerchantSerializer.new(Merchant.find_by(merchant_params))
+		render json: InvoiceSerializer.new(Invoice.find_by(invoice_params))
 	end
 
 	private
 
-	def merchant_params
-		params.permit(:id, :name, :updated_at, :created_at)
+	def invoice_params
+		params.permit(:id, :customer_id, :status, :merchant_id, :updated_at, :created_at)
 	end
 end
 
