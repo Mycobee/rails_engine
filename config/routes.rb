@@ -15,6 +15,10 @@ Rails.application.routes.draw do
 			end
 			resources :items, only: [:index, :show]
 
+			namespace :customers do
+				get '/random', to: 'random#show'
+				get '/find', to: 'search#show'
+			end
 			resources :customers, only: [:index, :show]
 			resources :invoice_items, only: [:index, :show]
 			resources :invoices, only: [:index, :show]
