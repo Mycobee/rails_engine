@@ -25,7 +25,6 @@ class Merchant < ApplicationRecord
 							.where('invoices.merchant_id = ?', self.id)
 							.order('transactions DESC')
 							.limit(1)[0]
-							
 		end
 
 		def self.most_revenue(limit)
