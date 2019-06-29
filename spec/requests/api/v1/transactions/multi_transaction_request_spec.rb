@@ -28,17 +28,6 @@ describe 'Search Controller' do
 		expect(transaction["data"].class).to eq(Array)
 	end
 
-	it 'finds all transaction by description' do
-		get "/api/v1/transactions/find_all?description=#{@transaction_1.description}"
-
-		expect(response).to be_successful
-
-		transaction = JSON.parse(response.body)
-	  	
-		expect(transaction["data"].count).to eq(1)
-		expect(transaction["data"].class).to eq(Array)
-	end
-
 	it 'finds all transaction by invoice_id' do
 		get "/api/v1/transactions/find_all?invoice_id=#{@transaction_1.invoice_id}"
 
