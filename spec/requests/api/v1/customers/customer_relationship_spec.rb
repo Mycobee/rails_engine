@@ -6,22 +6,12 @@ RSpec.describe 'customer relationships' do
 			@invoice_1 = create(:invoice, customer: @customer)	
 			@invoice_2 = create(:invoice, customer: @customer)	
 			@invoice_3 = create(:invoice)	
-			@item_1 = create(:item, customer: @customer)	
-			@item_2 = create(:item, customer: @customer)	
-			@item_3 = create(:item)	
+			@transaction_1 = create(:transaction, invoice: @invoice_1)	
+			@transaction_2 = create(:transaction, invoice: @invoice_2)	
+			@transaction_3 = create(:transaction)	
+			binding.pry
 	end
 
-	it 'items' do
-			get "/api/v1/customer/#{@customer.id}/items"
-
-			expect(response).to be_successful
-
-			items = JSON.parse(response.body)["data"]
-
-			expect(items.count).to eq(2)
-			expect(items[0]["id"]).to eq(@item_1.id.to_s)
-			expect(items[1]["id"]).to eq(@item_2.id.to_s)
-	end
 
 	it 'invoices' do
 			get "/api/v1/customer/#{@customer.id}/invoices"
@@ -33,6 +23,18 @@ RSpec.describe 'customer relationships' do
 			expect(invoices.count).to eq(2)
 			expect(invoices[0]["id"]).to eq(@invoice_1.id.to_s)
 			expect(invoices[1]["id"]).to eq(@invoice_2.id.to_s)
+	end
+
+	it 'transactions' do
+			get "/api/v1/customer/#{@customer.id}/transactions"
+
+			expect(response).to be_successful
+
+			transactions = JSON.parse(response.body)["data"]
+
+			expect(transactions.count).to eq(2)
+			expect(transactions[0]["id"]).to eq(@transaction_1.id.to_s)
+			expect(transactions[1]["id"]).to eq(@transaction_2.id.to_s)
 	end
 end
 
