@@ -29,6 +29,8 @@ Rails.application.routes.draw do
 			resources :customers, only: [:index, :show]
 
 			namespace :invoice_items do
+				get '/:id/item', to: 'items#show'
+				get '/:id/invoice', to: 'invoices#show'
 				get '/random', to: 'random#show'
 				get '/find', to: 'search#show'
 				get '/find_all', to: 'search#index'

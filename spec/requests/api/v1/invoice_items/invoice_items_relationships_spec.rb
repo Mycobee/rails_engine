@@ -12,7 +12,7 @@ RSpec.describe 'invoice_item relationships' do
 
 			expect(response).to be_successful
 
-			item = JSON.parse(response.body)["data"]
+			item = JSON.parse(response.body)
 
 			expect(item["data"]["id"]).to eq(@item_1.id.to_s)
 	end
