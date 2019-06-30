@@ -7,6 +7,8 @@ Rails.application.routes.draw do
 				get '/most_revenue', to: 'total_revenue#index'
 				get '/most_items', to: 'total_items#index'
 				get '/revenue', to: 'total_date#show'
+				get '/:id/favorite_customer', to: 'customers#show'
+				get '/:id/revenue', to: 'single_revenue#show'
 				get '/:id/invoices', to: 'invoices#index'
 				get '/:id/items', to: 'items#index'
 				get '/random', to: 'random#show'

@@ -100,6 +100,6 @@ RSpec.describe 'all merchant business intelligence' do
 		expect(response).to be_successful
 
 		revenue = JSON.parse(response.body)
-		expect(revenue["data"][0]["attributes"]["total_revenue"]).to eq(@daily_revenue.to_s)
+		expect(revenue["data"]["attributes"]["total_revenue"]).to eq(@daily_revenue.to_s)
 	end
 end

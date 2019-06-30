@@ -3,17 +3,18 @@ class Merchant < ApplicationRecord
 		has_many :invoices
 		has_many :customers, through: :invoices
 
+
 		def merchant_revenue
-		 items.joins(invoices: :transactions)
+				 	 items.unscoped.joins(invoices: :transactions)
 					.where('transactions.result = ?', 'success')
-					.select('SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')[0].total_revenue
+					.select('SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')[0]
 		end
 
 		def daily_revenue(date)
-					  items.joins(invoices: :transactions)
-								 .where('transactions.result = ?', 'success')
-								 .select('SUM(invoice_items.unit_price * invoice_items.quantity) AS daily_revenue')
-							   .where('invoices.created_at::date = date ?', date)[0].daily_revenue
+						items.unscoped.joins(invoices: :transactions)
+					 .where('transactions.result = ?', 'success')
+					 .select('SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
+				   .where('invoices.created_at::date = date ?', date)[0]
 		end
 
 		def favorite_custy
