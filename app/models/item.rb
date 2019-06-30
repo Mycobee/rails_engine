@@ -5,10 +5,11 @@ class Item < ApplicationRecord
 	default_scope { order('items.id ASC') }
 
 	def self.most_revenue(quantity)
-		 			 joins(invoices: :transactions)
-					.select('SUM(invoice_items.quantity * invoice_items.unit_price) AS item_revenue, items.*')
+			self.unscoped
+					.joins(invoices: :transactions)
+					.select('SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue, items.*')
 					.group(:id)
-					.order('item_revenue DESC')
+					.order('revenue DESC')
 					.limit(quantity)
 	end
 

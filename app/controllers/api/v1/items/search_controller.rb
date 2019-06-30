@@ -1,10 +1,20 @@
 class Api::V1::Items::SearchController < ApplicationController
-	def show
-		render json: ItemSerializer.new(Item.find_by(item_params))
-	end
-
 	def index
-		render json: ItemSerializer.new(Item.where(item_params))
+		if item_params[:unit_price] != nil
+		 	 price = (item_params[:unit_price].to_f * 100).to_i			
+			 render json: ItemSerializer.new(Item.where(unit_price: price))
+		else
+			render json: ItemSerializer.new(Item.where(item_params))
+		end
+	end
+	
+	def show
+		if item_params[:unit_price] != nil
+		 	 price = (item_params[:unit_price].to_f * 100).to_i			
+			 render json: ItemSerializer.new(Item.find_by(unit_price: price))
+		else
+			render json: ItemSerializer.new(Item.find_by(item_params))
+		end
 	end
 
 	private

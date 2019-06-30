@@ -74,15 +74,4 @@ describe 'Search Controller' do
 		expect(invoice_item["data"].class).to eq(Array)
 		expect(invoice_item["data"].count).to eq(2)
 	end
-	
-	it 'finds all invoice_item by unit_price' do
-		get "/api/v1/invoice_items/find_all?unit_price=#{@invoice_item_1.unit_price}"
-
-		expect(response).to be_successful
-
-		invoice_item = JSON.parse(response.body)
-
-		expect(invoice_item["data"].class).to eq(Array)
-		expect(invoice_item["data"].count).to eq(1)
-	end
 end
