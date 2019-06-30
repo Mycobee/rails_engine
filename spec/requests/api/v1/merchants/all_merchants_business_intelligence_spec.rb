@@ -65,7 +65,7 @@ RSpec.describe 'all merchant business intelligence' do
 		@invoice_item_4d = create(:invoice_item, item: @item_4d, invoice: @invoice_4d, created_at: 4.days.ago)
 		@transaction_4d = create(:transaction, invoice: @invoice_4d, created_at: 4.days.ago)
 		@busy_day = @transaction_4d.created_at.to_time.to_s.slice(0..9)
-		@daily_revenue = ((@invoice_item_4a.unit_price.to_f * @invoice_item_4a.quantity) +  (@invoice_item_4b.unit_price * @invoice_item_4b.quantity) + (@invoice_item_4c.unit_price * @invoice_item_4c.quantity) + (@invoice_item_4d.unit_price * @invoice_item_4d.quantity))
+		@daily_revenue = ((@invoice_item_4a.unit_price.to_f * @invoice_item_4a.quantity) +  (@invoice_item_4b.unit_price * @invoice_item_4b.quantity) + (@invoice_item_4c.unit_price * @invoice_item_4c.quantity) + (@invoice_item_4d.unit_price * @invoice_item_4d.quantity)) / 100 
 	end
 	
 	it 'most_revenue' do
@@ -99,8 +99,8 @@ RSpec.describe 'all merchant business intelligence' do
 
 		expect(response).to be_successful
 
-		revenue = JSON.parse(response.body)["data"]
-
-		expect(revenue).to eq(@daily_revenue)
+		revenue = JSON.parse(response.body)
+		binding.pry
+		expect(revenue["data"][0]["attributes"]["revenue"]).to eq(@daily_revenue.to_s)
 	end
 end
