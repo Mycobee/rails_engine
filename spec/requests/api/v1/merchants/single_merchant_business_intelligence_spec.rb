@@ -22,13 +22,14 @@ RSpec.describe 'single merchant business intelligence' do
 		@invoice_item_4c = create(:invoice_item, item: @item_4c, invoice: @invoice_4c, created_at: 4.days.ago)
 		@transaction_4c = create(:transaction, invoice: @invoice_4c, created_at: 4.days.ago)
 
-		@invoice_4d	= create(:invoice, merchant: @merchant_4, customer: @customer_4, created_at: 4.days.ago)
+		@invoice_4d	= create(:invoice, merchant: @merchant_4, customer: @customer_4, created_at: 5.days.ago)
 		@item_4d = create(:item, merchant: @merchant_4, created_at: 4.days.ago)
-		@invoice_item_4d = create(:invoice_item, item: @item_4d, invoice: @invoice_4d, created_at: 4.days.ago)
-		@transaction_4d = create(:transaction, invoice: @invoice_4d, created_at: 4.days.ago)
-		@expected_revenue = ((@invoice_item_4a.unit_price * @invoice_item_4a.quantity) + (@invoice_item_4b.unit_price * @invoice_item_4b.quantity) + (@invoice_item_4c.unit_price * @invoice_item_4c.quantity) + (@invoice_item_4d.unit_price * @invoice_item_4d.quantity)) / 100
+		@invoice_item_4d = create(:invoice_item, item: @item_4d, invoice: @invoice_4d, created_at: 5.days.ago)
+		@transaction_4d = create(:transaction, invoice: @invoice_4d, created_at: 5.days.ago)
+		@expected_revenue = (((@invoice_item_4a.unit_price * @invoice_item_4a.quantity) + (@invoice_item_4b.unit_price * @invoice_item_4b.quantity) + (@invoice_item_4c.unit_price * @invoice_item_4c.quantity) + (@invoice_item_4d.unit_price * @invoice_item_4d.quantity)) / 100.to_f).to_s
 	
-		@revenue_by_date = (@invoice_item_4d.quantity * @invoice_item_4d.unit_price) / 100
+		@revenue_by_date = (@invoice_item_4d.quantity * @invoice_item_4d.unit_price.to_f / 100)
+		@busy_day = @invoice_item_4d.created_at.to_time.to_s.slice(0..9)
 	end
 
 	it 'revenue' do
@@ -36,15 +37,15 @@ RSpec.describe 'single merchant business intelligence' do
 		
 		expect(response).to be_successful
 		revenue = JSON.parse(response.body)["data"]
-		expect(revenue["data"]["attributes"]["total_revenue"]).to eq(@expected_revenue.to_s)
+		expect(revenue["attributes"]["total_revenue"]).to eq(@expected_revenue)
 	end
 
 	it 'revenue?date' do
-		get "/api/v1/merchants/#{@merchant_4.id}/revenue"
+		get "/api/v1/merchants/#{@merchant_4.id}/revenue?date=#{@busy_day}"
 
 		expect(response).to be_successful
 		revenue = JSON.parse(response.body)["data"]
-		expect(revenue["data"]["attributes"]["total_revenue"]).to eq(@revenue_by_date.to_s)
+		expect(revenue["attributes"]["total_revenue"]).to eq(@revenue_by_date.to_s)
 	end
 
 	it 'favorite_custy' do
