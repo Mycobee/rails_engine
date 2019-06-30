@@ -3,6 +3,7 @@ class Merchant < ApplicationRecord
 		has_many :invoices
 		has_many :customers, through: :invoices
 
+
 		def merchant_revenue
 				 	 items.unscoped.joins(invoices: :transactions)
 					.where('transactions.result = ?', 'success')
