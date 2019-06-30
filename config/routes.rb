@@ -5,6 +5,7 @@ Rails.application.routes.draw do
 		namespace :v1 do 
 			namespace :merchants do
 				get '/:id/invoices', to: 'invoices#index'
+				get '/:id/items', to: 'items#index'
 				get '/random', to: 'random#show'
 				get '/find', to: 'search#show'
 				get '/find_all', to: 'search#index'
