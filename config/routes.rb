@@ -4,6 +4,9 @@ Rails.application.routes.draw do
 	namespace :api do
 		namespace :v1 do 
 			namespace :merchants do
+				get '/most_revenue', to: 'total_revenue#index'
+				get '/most_items', to: 'total_items#index'
+				get '/revenue', to: 'total_date#show'
 				get '/:id/invoices', to: 'invoices#index'
 				get '/:id/items', to: 'items#index'
 				get '/random', to: 'random#show'
