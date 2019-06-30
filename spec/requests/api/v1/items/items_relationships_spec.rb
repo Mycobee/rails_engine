@@ -27,7 +27,7 @@ RSpec.describe 'item relationships' do
 
 			merchant = JSON.parse(response.body)
 
-			expect(merchant["data"]["id"]).to eq(merchant.id.to_s)
+			expect(merchant["data"]["id"]).to eq(@merchant.id.to_s)
 	end
 end
 
