@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'customer relationships' do
+RSpec.describe 'transaction relationships' do
 	before :each do
 			@invoice_1 = create(:invoice)	
 			@invoice_2 = create(:invoice)	
