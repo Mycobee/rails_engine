@@ -9,16 +9,15 @@ RSpec.describe 'customer relationships' do
 			@transaction_1 = create(:transaction, invoice: @invoice_1)	
 			@transaction_2 = create(:transaction, invoice: @invoice_2)	
 			@transaction_3 = create(:transaction)	
-			binding.pry
 	end
 
 
 	it 'invoices' do
-			get "/api/v1/customer/#{@customer.id}/invoices"
+			get "/api/v1/customers/#{@customer.id}/invoices"
 
 			expect(response).to be_successful
 
-			invoices = JSON.parse(response.body)
+			invoices = JSON.parse(response.body)["data"]
 
 			expect(invoices.count).to eq(2)
 			expect(invoices[0]["id"]).to eq(@invoice_1.id.to_s)
@@ -26,7 +25,7 @@ RSpec.describe 'customer relationships' do
 	end
 
 	it 'transactions' do
-			get "/api/v1/customer/#{@customer.id}/transactions"
+			get "/api/v1/customers/#{@customer.id}/transactions"
 
 			expect(response).to be_successful
 
