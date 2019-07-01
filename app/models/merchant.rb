@@ -5,15 +5,15 @@ class Merchant < ApplicationRecord
 
 
 		def merchant_revenue
-				 	 items.unscoped.joins(invoices: :transactions)
+				 	 items.joins(invoices: :transactions)
 					.where('transactions.result = ?', 'success')
 					.select('SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')[0]
 		end
 
 		def daily_revenue(date)
-						items.unscoped.joins(invoices: :transactions)
+						items.joins(invoices: :transactions)
 					 .where('transactions.result = ?', 'success')
-					 .select('SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')[0]
+					 .select('SUM(invoice_items.unit_price * invoice_items.quantity) AS total_revenue')
 				   .where('invoices.created_at::date = date ?', date)[0]
 		end
 
