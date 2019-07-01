@@ -96,7 +96,6 @@ RSpec.describe 'all merchant business intelligence' do
 
 	it 'total_revenue_by_date' do
 		get "/api/v1/merchants/revenue?date=#{@busy_day}"	
-
 		expect(response).to be_successful
 
 		revenue = JSON.parse(response.body)

@@ -18,6 +18,8 @@ Rails.application.routes.draw do
 			resources :merchants, only: [:index, :show]
 			
 			namespace :items do
+				get '/most_revenue', to: 'revenue#index'
+				get '/most_items', to: 'count#index'
 				get '/:id/invoice_items', to: 'relationships#index'
 				get '/:id/merchant', to: 'relationships#show'
 				get '/random', to: 'random#show'

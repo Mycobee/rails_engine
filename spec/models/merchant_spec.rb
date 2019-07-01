@@ -82,9 +82,9 @@ RSpec.describe Merchant, type: :model do
 		end
 
 		it '.revenue_date' do
-			actual = Merchant.revenue_date(@transaction_4a.created_at.to_s(:db))
+						actual = Merchant.revenue_date(@transaction_4a.created_at.to_s(:db).slice(0..9))
 			expected = ((@invoice_item_4a.unit_price * 2) + (@invoice_item_4b.unit_price * 2) + (@invoice_item_4c.unit_price * 2) + (@invoice_item_4d.unit_price * 2))
-			expect(actual).to eq(expected)
+			expect(actual.total_revenue).to eq(expected)
 		end
 
 		it '.random' do
@@ -95,12 +95,13 @@ RSpec.describe Merchant, type: :model do
 	describe 'instance methods' do	
 		it '#merchant_revenue' do
 			expected = ((@invoice_item_4a.unit_price * 2) + (@invoice_item_4b.unit_price * 2) + (@invoice_item_4c.unit_price * 2) + (@invoice_item_4d.unit_price * 2))
-			expect(@merchant_4.merchant_revenue).to eq(expected)
+			expect(@merchant_4.merchant_revenue.total_revenue).to eq(expected)
 		end				
 
 		it '#daily_revenue' do
+			actual = @merchant_4.daily_revenue(@transaction_4a.created_at.to_s(:db).slice(0..9)).total_revenue 
 			expected = ((@invoice_item_4a.unit_price * 2) + (@invoice_item_4b.unit_price * 2) + (@invoice_item_4c.unit_price * 2) + (@invoice_item_4d.unit_price * 2))
-			expect(@merchant_4.daily_revenue(@transaction_4a.created_at.to_s(:db))).to eq(expected)
+			expect(actual).to eq(expected)
 		end				
 
 		it '#favorite_custy' do

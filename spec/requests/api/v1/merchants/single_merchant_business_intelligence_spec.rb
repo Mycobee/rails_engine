@@ -53,6 +53,6 @@ RSpec.describe 'single merchant business intelligence' do
 
 		expect(response).to be_successful
 		revenue = JSON.parse(response.body)["data"]
-		expect(revenue["attributes"]["id"]).to eq(@customer_4.id.to_s)
+		expect(revenue["attributes"]["id"]).to eq(@customer_4.id)
 	end
 end

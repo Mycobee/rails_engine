@@ -2,13 +2,14 @@ class Item < ApplicationRecord
   belongs_to :merchant
 	has_many :invoice_items
 	has_many :invoices, through: :invoice_items
-	default_scope { order('items.id ASC') }
-
+	default_scope{order(:id)}
+	
 	def self.most_revenue(quantity)
-		 			 joins(invoices: :transactions)
-					.select('SUM(invoice_items.quantity * invoice_items.unit_price) AS item_revenue, items.*')
+					 unscope(:order)
+					.joins(invoices: :transactions)
+					.select('SUM(invoice_items.quantity * invoice_items.unit_price) AS revenue, items.*')
 					.group(:id)
-					.order('item_revenue DESC')
+					.order('revenue DESC')
 					.limit(quantity)
 	end
 
@@ -26,7 +27,7 @@ class Item < ApplicationRecord
 	end
 
 	def best_day
-		invoice_items.joins(invoice: :transactions)
+		invoice_items.joins(invoice: :transactions).unscope(:order)
 					.where('invoice_items.item_id = ?', id)					
 					.where('transactions.result = ?', 'success')
 					.group('invoices.created_at::date')
