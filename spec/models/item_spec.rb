@@ -85,7 +85,7 @@ RSpec.describe Item, type: :model do
 		end
 
 		it '.best_day' do
-			expect(@item_4d.best_day).to eq(4.days.ago.to_date)
+			expect(@item_4d.best_day.best_day).to eq(4.days.ago.to_date)
 		end
 
 		it '.random' do

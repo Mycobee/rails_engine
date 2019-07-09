@@ -20,6 +20,7 @@ Rails.application.routes.draw do
 			namespace :items do
 				get '/most_revenue', to: 'revenue#index'
 				get '/most_items', to: 'count#index'
+				get '/:id/best_day', to: 'best_day#show'
 				get '/:id/invoice_items', to: 'relationships#index'
 				get '/:id/merchant', to: 'relationships#show'
 				get '/random', to: 'random#show'

@@ -14,7 +14,7 @@ class Item < ApplicationRecord
 	end
 
 	def self.most_items(quantity)
-		 			 joins(invoices: :transactions)
+					 joins(invoices: :transactions).unscope(:order)
 					.select('SUM(invoice_items.quantity) AS item_count, items.*')
 					.group(:id)
 					.order('item_count DESC')
@@ -31,7 +31,7 @@ class Item < ApplicationRecord
 					.where('invoice_items.item_id = ?', id)					
 					.where('transactions.result = ?', 'success')
 					.group('invoices.created_at::date')
-					.select('SUM(invoice_items.unit_price * invoice_items.quantity) AS daily_rev, invoices.created_at::date')
-					.order('daily_rev DESC')[0].created_at.to_date
+					.select('SUM(invoice_items.unit_price * invoice_items.quantity) AS daily_rev, invoices.created_at::date AS best_day')
+					.order('daily_rev DESC, best_day DESC')[0]
 	end
 end
