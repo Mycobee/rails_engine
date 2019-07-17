@@ -34,3 +34,4 @@ $ bundle exec rspec
 ##### RSpec/Capybara
 ##### ActiveRecord/SQL
 ##### Fast JSON API
+##### PostgreSQL
