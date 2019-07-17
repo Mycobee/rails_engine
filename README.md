@@ -1,25 +1,36 @@
-# README
+# Rails Engine
 
-This README would normally document whatever steps are necessary to get the
-application up and running.
+### About the Project
 
-Things you may want to cover:
+Solo project building a test driven API based on an e-commerce database. The application contains business logic and advanced database calls. Controllers are RESTful and adhere to the single responsibility principle.
 
-* Ruby version
+## Local Setup
 
-* System dependencies
+Clone down the repo
+```
+$ git clone
+```
 
-* Configuration
+Install the gem packages
+```
+$ bundle install
+```
 
-* Database creation
+Set up the database
+```
+$ rake db:create
+$ rake db:migrate
+$ rake db:seed
+```
 
-* Database initialization
+Run the test suite:
+```ruby
+$ bundle exec rspec
+```
 
-* How to run the test suite
+## Technologies Used                                           
 
-* Services (job queues, cache servers, search engines, etc.)
-
-* Deployment instructions
-
-* ...
-# rails_engine
+##### Ruby on Rails
+##### RSpec/Capybara
+##### ActiveRecord/SQL
+##### Fast JSON API
